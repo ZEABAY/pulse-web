@@ -1,0 +1,24 @@
+{
+    "Index": {
+        "title": "Hello Module (React Query)",
+        "baseUrl": "Temel URL",
+        "refreshAll": "Tüm Sorguları Yenile",
+        "backendHealth": "Sunucu Sağlığı",
+        "tracePropagation": "İzleme Yayılımı",
+        "basicEndpoints": "Temel Uç Noktalar",
+        "headersValidation": "Başlıklar + Doğrulama",
+        "refetch": "Yenile",
+        "loading": "Yükleniyor...",
+        "themeToggle": "Temayı Değiştir",
+        "missingQ": "q parametresi yok",
+        "themeShowcaseTitle": "Tema Paleti Referansı",
+        "themeShowcaseDesc": "Kurumsal ve Sakin (Ice Mist / Polar Night) teması için semantik renkler",
+        "varCol": "Değişken",
+        "nameCol": "Semantik İsim",
+        "lightCol": "Açık (Ice Mist)",
+        "darkCol": "Koyu (Polar Night)",
+        "themeLight": "Açık",
+        "themeDark": "Koyu",
+        "themeSystem": "Sistem"
+    }
+}

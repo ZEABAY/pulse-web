@@ -1,0 +1,24 @@
+{
+    "Index": {
+        "title": "Hello Module (React Query)",
+        "baseUrl": "Base URL",
+        "refreshAll": "Refresh All Queries",
+        "backendHealth": "Backend Health",
+        "tracePropagation": "Trace Propagation",
+        "basicEndpoints": "Basic Endpoints",
+        "headersValidation": "Headers + Validation",
+        "refetch": "Refetch",
+        "loading": "Loading...",
+        "themeToggle": "Toggle Theme",
+        "missingQ": "missing q",
+        "themeShowcaseTitle": "Theme Palette Reference",
+        "themeShowcaseDesc": "Semantic colors for Corporate & Calm (Ice Mist / Polar Night)",
+        "varCol": "Variable",
+        "nameCol": "Semantic Name",
+        "lightCol": "Light (Ice Mist)",
+        "darkCol": "Dark (Polar Night)",
+        "themeLight": "Light",
+        "themeDark": "Dark",
+        "themeSystem": "System"
+    }
+}
