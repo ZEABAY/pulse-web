@@ -1,0 +1,458 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Tailwind v4 CSS-first Design Token Bridge
+ * ------------------------------------------
+ * @theme bloğu, Tailwind'in utility class'larını (bg-primary, text-foreground vb.)
+ * CSS custom property'lere bağlar. Buradaki `var(--primary)` gibi referanslar,
+ * aşağıdaki `@layer base { :root { ... } }` bloğunda tanımlanan gerçek değerlere
+ * runtime'da çözümlenir. Bu sayede tema değişikliği (.dark, .neon) sadece
+ * :root değerlerini override ederek tüm utility class'ları otomatik günceller.
+ */
+@theme {
+    /* 0. BREAKPOINTS */
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+
+    /* 1. ARKA PLAN VE YÜZEYLER (SURFACES) */
+    --color-background: var(--background);
+    --color-surface: var(--surface);
+    --color-surface-hover: var(--surface-hover);
+    --color-surface-active: var(--surface-active);
+    --color-surface-elevated: var(--surface-elevated);
+    --color-surface-disabled: var(--surface-disabled);
+
+    /* 2. MARKA VE SEMANTİK RENKLER */
+    --color-primary: var(--primary);
+    --color-primary-hover: var(--primary-hover);
+    --color-primary-active: var(--primary-active);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-info: var(--primary);
+    --color-info-foreground: var(--primary-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-hover: var(--accent-hover);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-success: var(--success);
+    --color-success-soft: var(--success-soft);
+    --color-success-foreground: var(--success-foreground);
+
+    --color-error: var(--error);
+    --color-error-soft: var(--error-soft);
+    --color-error-foreground: var(--error-foreground);
+
+    --color-warning: var(--warning);
+    --color-warning-soft: var(--warning-soft);
+    --color-warning-foreground: var(--warning-foreground);
+
+    /* 3. METİN VE İKON RENKLERİ */
+    --color-foreground: var(--foreground);
+    --color-foreground-muted: var(--foreground-muted);
+    --color-foreground-disabled: var(--foreground-disabled);
+    --color-foreground-placeholder: var(--foreground-placeholder);
+
+    /* 4. DURUMLAR VE BORDER */
+    --color-border: var(--border);
+    --color-border-hover: var(--border-hover);
+    --color-border-strong: var(--border-strong);
+    --color-input-bg: var(--input-bg);
+    --color-ring: var(--ring);
+
+    /* --- SHADCN UI UYUMLULUK EŞLEŞTİRMELERİ --- */
+    --color-card: var(--surface);
+    --color-card-foreground: var(--foreground);
+    --color-popover: var(--surface-elevated);
+    --color-popover-foreground: var(--foreground);
+
+    --color-secondary: var(--surface-hover);
+    --color-secondary-foreground: var(--foreground);
+
+    --color-muted: var(--surface-disabled);
+    --color-muted-foreground: var(--foreground-muted);
+
+    --color-destructive: var(--error);
+    --color-destructive-foreground: var(--error-foreground);
+
+    --color-input: var(--border);
+
+    /* Charts */
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    /* Sidebar */
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+
+    /* 5. TİPOGRAFİ */
+    --font-sans: var(--font-family-base), ui-sans-serif, system-ui, sans-serif;
+
+    /* 6. BOŞLUK SİSTEMİ (SPACING) */
+    --spacing-1: var(--space-1);
+    --spacing-2: var(--space-2);
+    --spacing-3: var(--space-3);
+    --spacing-4: var(--space-4);
+    --spacing-6: var(--space-6);
+    --spacing-8: var(--space-8);
+
+    /* 7. GEOMETRİ VE DERİNLİK (RADIUS & SHADOW) */
+    --radius-sm: var(--radius-sm);
+    --radius-md: var(--radius-md);
+    --radius-lg: var(--radius-lg);
+    --radius-full: var(--radius-full);
+    --radius: var(--radius-md);
+    /* Shadcn Base */
+
+    --shadow-sm: var(--shadow-sm);
+    --shadow-md: var(--shadow-md);
+    --shadow-lg: var(--shadow-lg);
+
+    /* 8. Z-INDEX */
+    --z-base: var(--z-base);
+    --z-dropdown: var(--z-dropdown);
+    --z-sticky: var(--z-sticky);
+    --z-drawer: var(--z-drawer);
+    --z-overlay: var(--z-overlay);
+    --z-modal: var(--z-modal);
+    --z-toast: var(--z-toast);
+    --z-tooltip: var(--z-tooltip);
+
+    /* 9. ANİMASYON */
+    --default-transition-duration: var(--transition-normal);
+    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@layer base {
+    :root {
+        color-scheme: light;
+
+        /* 1. ARKA PLAN VE YÜZEYLER */
+        --background: #F8FAFC;
+        --surface: #FFFFFF;
+        --surface-hover: #F1F5F9;
+        --surface-active: #E2E8F0;
+        --surface-elevated: #FFFFFF;
+        --surface-disabled: #F1F5F9;
+        --overlay: rgba(15, 23, 42, 0.4);
+        --overlay-blur: blur(4px);
+
+        /* 2. MARKA VE SEMANTİK RENKLER */
+        --primary: #0EA5E9;
+        --primary-hover: #0284C7;
+        --primary-active: #0369A1;
+        --primary-foreground: #FFFFFF;
+
+        --accent: #14B8A6;
+        --accent-hover: #0D9488;
+        --accent-foreground: #FFFFFF;
+
+        --success: #10B981;
+        --success-soft: #D1FAE5;
+        --success-foreground: #FFFFFF;
+
+        --error: #EF4444;
+        --error-soft: #FEE2E2;
+        --error-foreground: #FFFFFF;
+
+        --warning: #F59E0B;
+        --warning-soft: #FEF3C7;
+        --warning-foreground: #FFFFFF;
+
+        /* 3. METİN VE İKON RENKLERİ */
+        --foreground: #0F172A;
+        --foreground-muted: #64748B;
+        --foreground-disabled: #94A3B8;
+        --foreground-placeholder: #94A3B8;
+
+        /* 4. DURUMLAR (BORDERS & STATES) */
+        --border: #E2E8F0;
+        --border-hover: #CBD5E1;
+        --border-strong: #94A3B8;
+        --input-bg: #FFFFFF;
+        --ring: #0EA5E9;
+        --ring-width: 2px;
+        --ring-offset-width: 2px;
+        --ring-offset-color: transparent;
+
+        /* CHART & SIDEBAR (Extended to match Pulse Design System style) */
+        --chart-1: #0EA5E9;
+        --chart-2: #14B8A6;
+        --chart-3: #F59E0B;
+        --chart-4: #8B5CF6;
+        --chart-5: #EC4899;
+
+        --sidebar: #FFFFFF;
+        --sidebar-foreground: #0F172A;
+        --sidebar-primary: #0EA5E9;
+        --sidebar-primary-foreground: #FFFFFF;
+        --sidebar-accent: #F1F5F9;
+        --sidebar-accent-foreground: #0F172A;
+        --sidebar-border: #E2E8F0;
+        --sidebar-ring: #0EA5E9;
+
+        /* 5. TİPOGRAFİ (Değerler Tailwinde eşlenir) */
+        --font-family-base: 'Inter', sans-serif;
+        --text-xs: 12px;
+        --text-sm: 14px;
+        --text-base: 16px;
+        --text-lg: 18px;
+        --text-xl: 20px;
+        --text-2xl: 24px;
+        --leading-none: 1;
+        --leading-tight: 1.25;
+        --leading-normal: 1.5;
+        --font-regular: 400;
+        --font-medium: 500;
+        --font-bold: 700;
+
+        /* 6. BOŞLUK SİSTEMİ */
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-6: 24px;
+        --space-8: 32px;
+
+        /* 7. GEOMETRİ VE DERİNLİK */
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-full: 9999px;
+        --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.1), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+        --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.1), 0 4px 6px -4px rgba(15, 23, 42, 0.05);
+
+        /* 8. Z-INDEX */
+        --z-base: 0;
+        --z-dropdown: 100;
+        --z-sticky: 200;
+        --z-drawer: 300;
+        --z-overlay: 400;
+        --z-modal: 500;
+        --z-toast: 600;
+        --z-tooltip: 700;
+
+        /* 9. ANİMASYON */
+        --transition-fast: 150ms;
+        --transition-normal: 250ms;
+    }
+
+
+    .dark {
+        color-scheme: dark;
+
+        /* 1. ARKA PLAN VE YÜZEYLER*/
+        --background: #1E232F;
+        --surface: #292E3D;
+        --surface-hover: #334155;
+        --surface-active: #3A4350;
+        --surface-elevated: #3A4350;
+        --surface-disabled: #1E232F;
+        --overlay: rgba(30, 35, 47, 0.8);
+
+        /* 2. MARKA VE SEMANTİK (RAFİNE TEAL İLE UYUMLU) */
+        --primary: #257C8E;
+        --primary-hover: #1F6B6C;
+        --primary-active: #164E4D;
+        --primary-foreground: #D1D8E5;
+
+        --accent: #14B8A6;
+        --accent-hover: #0EA5E9;
+        --accent-foreground: #1E232F;
+
+        --success: #22C55E;
+        --success-soft: rgba(34, 197, 94, 0.2);
+        --success-foreground: #D1D8E5;
+
+        --error: #EF4444;
+        --error-soft: rgba(239, 68, 68, 0.2);
+        --error-foreground: #D1D8E5;
+
+        --warning: #F59E0B;
+        --warning-soft: rgba(245, 158, 11, 0.2);
+        --warning-foreground: #1E232F;
+
+        --foreground: #D1D8E5;
+        --foreground-muted: #94A3B8;
+        --foreground-disabled: #475569;
+        --foreground-placeholder: #475569;
+
+        /* 4. FORM VE DURUMLAR (RAFİNE TEAL İLE UYUMLU) */
+        --border: #475569;
+        --border-hover: #94A3B8;
+        --border-strong: #D1D8E5;
+        --input-bg: rgba(15, 23, 42, 0.5);
+        --ring: #257C8E;
+
+        /* CHART & SIDEBAR (Rafine Teal Uyumlu) */
+        --chart-1: #257C8E;
+        --chart-2: #14B8A6;
+        --chart-3: #F59E0B;
+        --chart-4: #8E7A5A;
+        --chart-5: #3A4350;
+
+        --sidebar: #1E232F;
+        --sidebar-foreground: #D1D8E5;
+        --sidebar-primary: #257C8E;
+        --sidebar-primary-foreground: #D1D8E5;
+        --sidebar-accent: #292E3D;
+        --sidebar-accent-foreground: #D1D8E5;
+        --sidebar-border: #475569;
+        --sidebar-ring: #257C8E;
+
+        /* GÖLGE İPTALİ (Orijinal kalsın) */
+        --shadow-sm: none;
+        --shadow-md: none;
+        --shadow-lg: none;
+    }
+
+    .neon {
+        color-scheme: neon;
+
+        /* 1. ARKA PLAN VE YÜZEYLER */
+        --background: #020617;
+        --surface: #0F172A;
+        --surface-hover: #1E293B;
+        --surface-active: #334155;
+        --surface-elevated: #1E293B;
+        --surface-disabled: #0F172A;
+        --overlay: rgba(2, 6, 23, 0.8);
+
+        /* 2. MARKA VE SEMANTİK */
+        --primary: #38BDF8;
+        --primary-hover: #0EA5E9;
+        --primary-active: #0284C7;
+        --primary-foreground: #020617;
+
+        --accent: #2DD4BF;
+        --accent-hover: #14B8A6;
+        --accent-foreground: #020617;
+
+        --success: #34D399;
+        --success-soft: rgba(16, 185, 129, 0.2);
+        --success-foreground: #020617;
+
+        --error: #F87171;
+        --error-soft: rgba(239, 68, 68, 0.2);
+        --error-foreground: #450A0A;
+
+        --warning: #FBBF24;
+        --warning-soft: rgba(245, 158, 11, 0.2);
+        --warning-foreground: #020617;
+
+        /* 3. METİN */
+        --foreground: #F8FAFC;
+        --foreground-muted: #94A3B8;
+        --foreground-disabled: #475569;
+        --foreground-placeholder: #475569;
+
+        /* 4. FORM VE DURUMLAR */
+        --border: #334155;
+        --border-hover: #475569;
+        --border-strong: #64748B;
+        --input-bg: rgba(15, 23, 42, 0.5);
+        --ring: #38BDF8;
+
+        /* CHART & SIDEBAR (Dark Mode) */
+        --chart-1: #38BDF8;
+        --chart-2: #2DD4BF;
+        --chart-3: #FBBF24;
+        --chart-4: #A78BFA;
+        --chart-5: #F472B6;
+
+        --sidebar: #0F172A;
+        --sidebar-foreground: #F8FAFC;
+        --sidebar-primary: #38BDF8;
+        --sidebar-primary-foreground: #020617;
+        --sidebar-accent: #1E293B;
+        --sidebar-accent-foreground: #F8FAFC;
+        --sidebar-border: #334155;
+        --sidebar-ring: #38BDF8;
+
+        /* GÖLGE İPTALİ (Dark modda gölgeler none) */
+        --shadow-sm: none;
+        --shadow-md: none;
+        --shadow-lg: none;
+    }
+}
+
+/* Erişilebilirlik: Hareketi Azalt */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --transition-fast: 0ms;
+        --transition-normal: 0ms;
+    }
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--font-family-base), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    /* Pulse Global Form Styles */
+    input[type="checkbox"],
+    input[type="radio"] {
+        @apply accent-primary cursor-pointer w-4 h-4 transition-all;
+    }
+
+    input[type="checkbox"]:hover,
+    input[type="radio"]:hover {
+        @apply ring-2 ring-primary/20;
+    }
+
+    /* Pulse Global UX Rules: Soft Cursors for Disabled Elements */
+    button:disabled,
+    input:disabled,
+    textarea:disabled,
+    select:disabled {
+        cursor: default;
+    }
+
+    /* Pulse Sonner Overrides to match Design System Brand Colors */
+    [data-sonner-toast].pulse-toast {
+        --normal-bg: var(--surface) !important;
+        --normal-border: var(--border) !important;
+        --normal-text: var(--foreground) !important;
+        --success-bg: var(--surface) !important;
+        --success-border: var(--success) !important;
+        --success-text: var(--success) !important;
+        --error-bg: var(--surface) !important;
+        --error-border: var(--error) !important;
+        --error-text: var(--error) !important;
+        --info-bg: var(--surface) !important;
+        --info-border: var(--primary) !important;
+        --info-text: var(--primary) !important;
+        --warning-bg: var(--surface) !important;
+        --warning-border: var(--warning) !important;
+        --warning-text: var(--warning) !important;
+        font-family: var(--font-family-base) !important;
+    }
+}
